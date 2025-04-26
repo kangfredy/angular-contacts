@@ -1,0 +1,94 @@
+<div class="contact-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{
+        isEditMode ? "Edit Contact" : "Add Contact"
+      }}</mat-card-title>
+    </mat-card-header>
+
+    @if (isLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+
+    <mat-card-content>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="Enter contact name"
+          />
+          @if (contactForm.get('name')?.hasError('required') &&
+          contactForm.get('name')?.touched) {
+          <mat-error>Name is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            placeholder="Enter contact email"
+          />
+          @if (contactForm.get('email')?.hasError('required') &&
+          contactForm.get('email')?.touched) {
+          <mat-error>Email is required</mat-error>
+          } @if (contactForm.get('email')?.hasError('email') &&
+          contactForm.get('email')?.touched) {
+          <mat-error>Please enter a valid email address</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            formControlName="title"
+            placeholder="Enter job title"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone</mat-label>
+          <input
+            matInput
+            formControlName="phone"
+            placeholder="Enter contact phone number"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            formControlName="address"
+            placeholder="Enter contact address"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>City</mat-label>
+          <input
+            matInput
+            formControlName="city"
+            placeholder="Enter contact city"
+          />
+        </mat-form-field>
+
+        <div class="button-container">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="contactForm.invalid || isLoading"
+          >
+            {{ isEditMode ? "Update" : "Save" }}
+          </button>
+          <button mat-button type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
